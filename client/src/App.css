@@ -1,0 +1,107 @@
+* {
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+}
+
+body {
+  color: #333;
+  font-family: 'calibri';
+}
+
+img {
+  min-width: 100%;
+}
+
+main {
+  padding: 12px;
+  min-width: 700px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  align-items: center;
+}
+
+header a {
+  text-decoration: none;
+  color: inherit
+}
+
+header a.logo {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: rgb(13, 175, 140);
+}
+
+header nav {
+  display: flex;
+  gap: 10px;
+}
+
+div.post {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 15px;
+  margin-bottom: 35px;
+}
+
+div.post div.img {
+  width: 40%;
+}
+
+div.post div.text h2 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+div.post p.info {
+  margin: 6px 0;
+  color: #888;
+  font-size: .7rem;
+  font-weight: bold;
+  display: flex;
+  gap: 10px;
+}
+
+div.post p.info a.author {
+  color: #333;
+}
+
+div.post p.summary {
+  margin: 10px 0;
+  line-height: 1.5rem;
+}
+
+form.login, form.register {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+input {
+  display: block;
+  margin-bottom: 10px;
+  min-width: 100%;
+  padding: 20px;
+  border-radius: 6px;
+  background-color: #ddd;
+  border: 0;
+  
+}
+
+button {
+  background-color: rgb(13, 175, 140);
+  min-width: 100%;
+  padding: 13px;
+  border-radius: 6px;
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  display: block;
+}
+
+form h1 {
+  text-align: center;
+}

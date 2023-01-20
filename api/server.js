@@ -5,12 +5,15 @@ const mongoose = require('mongoose')
 const User = require('./models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
+const { ok } = require('assert')
 
 const salt = bcrypt.genSaltSync(10);
 const secret = 'qwertyuioplkjhgfdsacvzxnm'
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }))
 app.use(express.json())
+app.use(cookieParser())
 
 mongoose.set('strictQuery', true)
 mongoose.connect('mongodb+srv://root:root@cluster0.6skwoja.mongodb.net/?retryWrites=true&w=majority')
@@ -47,7 +50,10 @@ app.post('/login', async (req, res) => {
         jwt.sign({ username, id: userDoc._id }, secret, {}, (err, token) => {
 
             if (err) throw err;
-            res.cookie('token', token).json('ok')
+            res.cookie('token', token).json({
+                id: userDoc._id,
+                username,
+            })
 
         })
 
@@ -56,6 +62,25 @@ app.post('/login', async (req, res) => {
         res.status(400).json('Invalid Credentials')
     }
 
+})
+
+// get profile
+app.get('/profile', (req, res) => {
+
+    // grab the token
+    const { token } = req.cookies
+    // read the token
+    jwt.verify(token, secret, {}, (err, info) => {
+
+        if (err) throw err;
+        res.json(info);
+    })
+})
+
+//  logout endpoit
+app.post('/logout', (req, res) => {
+
+    res.cookie('token', '').json('ok');
 })
 
 app.listen(4000)

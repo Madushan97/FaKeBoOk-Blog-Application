@@ -31,6 +31,27 @@ function CreatePost() {
     const [title, setTitle] = useState('');
     const [summary, setSummary] = useState('');
     const [content, setContent] = useState('');
+    const [files, setFiles] = useState('');
+
+    async function createNewPost(e) {
+
+        const data = new FormData();
+
+        data.set('title', title);
+        data.set('summary', summary);
+        data.set('content', content);
+        data.set('file', files[0]);
+
+        e.preventDefault();
+        // send all form data to the endpoint
+        const response = await fetch('http://localhost:4000/post', {
+
+            method: 'POST',
+            body: data,
+
+        });
+        console.log(await response.json());
+    }
 
     return (
         <form style={{ margin: '0 400px' }} onSubmit={createNewPost}>
@@ -46,7 +67,10 @@ function CreatePost() {
                 value={summary}
                 onChange={e => setSummary(e.target.value)}
             />
-            <input type="file" />
+            <input
+                type="file"
+                onChange={e => setFiles(e.target.files)}
+            />
             <ReactQuill
                 value={content}
                 modules={modules}
